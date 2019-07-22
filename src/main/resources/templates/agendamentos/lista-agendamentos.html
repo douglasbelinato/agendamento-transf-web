@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	  			xmlns:th="http://www.thymeleaf.org"
+	  			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  			layout:decorate="layout/LayoutPadrao"
+	  			xmlns:brewer="http://qualquerCoisa.com" >
+<head>
+	<title>Listar agendamentos de transferência</title>
+</head>
+<body>
+	
+	<section layout:fragment="conteudo">
+	
+		<div class="page-header">
+            <div class="container-fluid">
+                <h1>
+                    Listar agendamentos de transferência
+                </h1>
+            </div>
+        </div>
+	
+		<div class="container-fluid">
+			<div class="table-responsive  bw-tabela-simples">			
+				<table class="table  table-hover">
+					<thead>
+						<tr>							
+							<th class="table-agendamentos-col-estilo">Conta Origem</th>
+							<th class="table-agendamentos-col-estilo">Conta Destino</th>
+							<th class="table-agendamentos-col-estilo">Valor</th>
+							<th class="table-agendamentos-col-estilo">Data da transferência</th>
+							<th class="table-agendamentos-col-estilo">Data do agendamento</th>
+							<th class="table-agendamentos-col-estilo">Taxa</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="agendamento : ${consultaAgendamentosDTO.agendamentos}">
+							<td th:text="${agendamento.contaOrigem}"></td>
+							<td th:text="${agendamento.contaDestino}"></td>
+							<td th:text="|R$ ${#numbers.formatDecimal(agendamento.valor, 0, 'POINT', 2, 'COMMA')}|"></td>
+							<td th:text="${#temporals.format(agendamento.dataTransferencia, 'dd-MM-yyyy')}"></td>
+							<td th:text="${#temporals.format(agendamento.dataAgendamento, 'dd-MM-yyyy')}"></td>
+							<td th:text="|R$ ${#numbers.formatDecimal(agendamento.taxa, 0, 'POINT', 2, 'COMMA')}|"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		
+		</div>	
+	
+	</section>
+</body>
+</html>

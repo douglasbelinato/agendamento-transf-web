@@ -1,13 +1,15 @@
 package br.com.cvc.agendamento.dto;
 
-import br.com.cvc.agendamento.model.Agendamento;
-
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.cvc.agendamento.model.Agendamento;
+
 public class ConsultaAgendamentosDTO implements Serializable {
 
-    private List<Agendamento> agendamentos;
+	private static final long serialVersionUID = -3217586797484474902L;
+	
+	private List<Agendamento> agendamentos;
     private Integer pagina;
     private Integer qtdRegistrosPagina;
     private Integer colunaOrdenacao;

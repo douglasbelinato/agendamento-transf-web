@@ -5,7 +5,9 @@ import java.time.LocalDate;
 
 public class Agendamento implements Serializable {
 
-    private Long id;
+	private static final long serialVersionUID = 1524146118899240131L;
+
+	private Long id;
 
     private Integer contaOrigem;
 
