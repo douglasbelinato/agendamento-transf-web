@@ -9,6 +9,11 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 
+/**
+ * Deserializador personalizado para que objetos JSON sejam
+ * convertidos corretamente em LocalDate. 
+ *
+ */
 public class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
 	@Override
 	public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {

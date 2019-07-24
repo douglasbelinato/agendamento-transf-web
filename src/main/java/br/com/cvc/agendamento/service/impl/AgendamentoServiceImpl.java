@@ -38,6 +38,10 @@ public class AgendamentoServiceImpl implements AgendamentoService {
 	@Autowired
 	private GsonBuilder gsonBuilder;
 
+	/**
+     * Lista todos os agendamentos de transferências cadastrados.
+     * 
+     */
     @Override
     public ConsultaAgendamentosDTO listar() throws OAuthSystemException, OAuthProblemException {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(host + serverPort + resourceAgendamentos);
@@ -57,6 +61,11 @@ public class AgendamentoServiceImpl implements AgendamentoService {
         }
     }
 
+    
+    /**
+     * Grava um novo agendamento de transferência na base de dados.
+     * 
+     */
     @Override
     public NovoAgendamentoDTO inserir(AgendamentoDTO dto) throws OAuthSystemException, OAuthProblemException {
     	UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(host + serverPort + resourceAgendamentos);
@@ -74,7 +83,5 @@ public class AgendamentoServiceImpl implements AgendamentoService {
         		throw new TechnicalException(responseErroDTO.getMensagem());
         	}
         }
-        
     }
-    
 }

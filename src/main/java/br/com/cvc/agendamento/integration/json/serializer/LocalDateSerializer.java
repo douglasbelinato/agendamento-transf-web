@@ -9,6 +9,11 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+/**
+ * Serializador personalizado para que objetos LocalDate sejam
+ * convertidos corretamente em JSON. 
+ *
+ */
 public class LocalDateSerializer implements JsonSerializer < LocalDate > {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 

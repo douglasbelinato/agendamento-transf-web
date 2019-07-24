@@ -9,6 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * Configurações para direcionar URLs desconhecidas para página 
+ * personalizada de endereço não encontrado.
+ *
+ */
 @Configuration
 public class WebApplicationConfig implements WebMvcConfigurer {
 

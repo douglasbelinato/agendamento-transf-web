@@ -11,6 +11,10 @@ import com.google.gson.GsonBuilder;
 import br.com.cvc.agendamento.integration.json.serializer.LocalDateDeserializer;
 import br.com.cvc.agendamento.integration.json.serializer.LocalDateSerializer;
 
+/**
+ * Classe principal para iniciar a aplicação SpringBoot 
+ *
+ */
 @SpringBootApplication
 public class Main {
 
