@@ -3,6 +3,10 @@ package br.com.cvc.agendamento.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Agendamento implements Serializable {
 
 	private static final long serialVersionUID = 1524146118899240131L;
@@ -17,11 +21,13 @@ public class Agendamento implements Serializable {
 
     private Double taxa;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataTransferencia;
 
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataAgendamento;
-
-    private Long idUsuario;
 
     public Long getId() {
         return id;
@@ -77,27 +83,5 @@ public class Agendamento implements Serializable {
 
     public void setDataAgendamento(LocalDate dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
-    }
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    @Override
-    public String toString() {
-        return "Agendamento{" +
-                "id=" + id +
-                ", contaOrigem=" + contaOrigem +
-                ", contaDestino=" + contaDestino +
-                ", valor=" + valor +
-                ", taxa=" + taxa +
-                ", dataTransferencia=" + dataTransferencia +
-                ", dataAgendamento=" + dataAgendamento +
-                ", idUsuario=" + idUsuario +
-                '}';
     }
 }

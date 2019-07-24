@@ -37,8 +37,6 @@ public class AgendamentoDTO implements Serializable {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataAgendamento;
 
-    private Long idUsuario;
-
     public Integer getContaOrigem() {
         return contaOrigem;
     }
@@ -78,12 +76,5 @@ public class AgendamentoDTO implements Serializable {
     public void setDataAgendamento(LocalDate dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+    
 }
