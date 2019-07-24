@@ -30,14 +30,14 @@
                 <div class="row">
                     <div class="col-sm-2  form-group  bw-required">
                         <label for="contaOrigem" class="control-label">Conta origem</label>
-                        <input id="contaOrigem" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaOrigem}"/>
+                        <input id="contaOrigem" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaOrigem}" autocomplete="off"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-2  form-group  bw-required">
                         <label for="contaDestino" class="control-label">Conta destino</label>
-                        <input id="contaDestino" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaDestino}"/>
+                        <input id="contaDestino" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaDestino}" autocomplete="off"/>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@
                         <label for="valor" class="control-label">Valor</label>
                         <div class="input-group">
                             <div class="input-group-addon">R$</div>                            
-                            <input id="valor" type="text" class="form-control  js-decimal" th:field="*{valor}"/>
+                            <input id="valor" type="text" class="form-control  js-decimal" th:field="*{valor}" autocomplete="off"/>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-sm-4  form-group  bw-required">
                         <label for="date" class="control-label">Data da transferencia</label>
-                        <input id="date" placeholder="DD/MM/YYYY" type="text" class="form-control  js-date" th:field="*{dataTransferencia}"  autocomplete="off"/>
+                        <input id="date" data-date-format="dd/mm/yyyy" placeholder="DD/MM/YYYY" type="text" class="form-control  js-date" th:field="*{dataTransferencia}"  autocomplete="off"/>
                     </div>
                 </div>
 
