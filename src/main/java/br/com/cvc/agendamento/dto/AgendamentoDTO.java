@@ -29,13 +29,9 @@ public class AgendamentoDTO implements Serializable {
     private Double valor;
 
 	@NotNull(message = "Data da transferência é obrigatório")
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataTransferencia;
-
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate dataAgendamento;
 
     public Integer getContaOrigem() {
         return contaOrigem;
@@ -67,14 +63,6 @@ public class AgendamentoDTO implements Serializable {
 
     public void setDataTransferencia(LocalDate dataTransferencia) {
         this.dataTransferencia = dataTransferencia;
-    }
-
-    public LocalDate getDataAgendamento() {
-        return dataAgendamento;
-    }
-
-    public void setDataAgendamento(LocalDate dataAgendamento) {
-        this.dataAgendamento = dataAgendamento;
     }
     
 }
