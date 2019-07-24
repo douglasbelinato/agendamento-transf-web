@@ -24,6 +24,11 @@ public class AgendamentoController {
     @Autowired
     private AgendamentoService agendamentoService;
     
+    @GetMapping(value = "/paginaNaoEncontrada")
+    public ModelAndView paginaNaoEncontrada() {
+    	return new ModelAndView("agendamentos/pagina-nao-encontrada");
+    }
+    
     @GetMapping(value = "/agendamentos")
     public ModelAndView listar() throws OAuthSystemException, OAuthProblemException {
         ModelAndView mv = new ModelAndView("agendamentos/lista-agendamentos");
