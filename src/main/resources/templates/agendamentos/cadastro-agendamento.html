@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="'layout/LayoutPadrao'" >
+<head>
+    <title>Cadastro de agendamentos de transferência</title>
+</head>
+<body>
+
+    <section layout:fragment="conteudo">
+
+        <div class="page-header">
+            <div class="container-fluid">
+                <h1>
+                    Cadastro de agendamentos de transferência
+                </h1>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+           <th:block th:include="fragments/MensagemSucesso"></th:block>
+
+            <form method="POST" th:object="${agendamentoDTO}" th:action="@{/agendamentos/novo}" class="form-vertical  js-form-loading">
+
+               <th:block th:include="fragments/MensagensErroValidacao"></th:block>
+               <th:block th:include="fragments/MensagemErroIntegracao"></th:block>
+
+                <div class="row">
+                    <div class="col-sm-2  form-group  bw-required">
+                        <label for="contaOrigem" class="control-label">Conta origem</label>
+                        <input id="contaOrigem" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaOrigem}" autocomplete="off"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2  form-group  bw-required">
+                        <label for="contaDestino" class="control-label">Conta destino</label>
+                        <input id="contaDestino" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaDestino}" autocomplete="off"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2  form-group  bw-required">
+                        <label for="valor" class="control-label">Valor</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">R$</div>                            
+                            <input id="valor" type="text" class="form-control  js-decimal" th:field="*{valor}" autocomplete="off"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4  form-group  bw-required">
+                        <label for="date" class="control-label">Data da transferencia</label>
+                        <input id="date" data-date-format="dd/mm/yyyy" placeholder="DD/MM/YYYY" type="text" class="form-control  js-date" th:field="*{dataTransferencia}"  autocomplete="off"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn  btn-primary" type="submit">Salvar</button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	  			xmlns:th="http://www.thymeleaf.org"
+	  			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  			layout:decorate="layout/LayoutPadrao"
+	  			xmlns:brewer="http://qualquerCoisa.com" >
+<head>
+	<title>Oops! Essa página não foi encontrada</title>
+</head>
+<body>
+	
+	<section layout:fragment="conteudo">
+	
+		<div class="page-header">
+            <div class="container-fluid">
+                <h1>
+                    Página não encontrada
+                </h1>
+            </div>
+        </div>
+	
+		<div class="container-fluid">
+			<img alt="Página não encontrada" th:src="@{/images/404.png}"/>
+			<div class="row text-center">
+                    <div class="col-sm-12  form-group">
+                        A página que você procura não existe. Por favor, verifique o endereço e tente novamente. 
+                    </div>
+                </div>
+		</div>	
+	
+	</section>
+</body>
+</html>
