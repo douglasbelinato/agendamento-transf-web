@@ -1,4 +1,4 @@
-package br.com.cvc.agendamento;
+package br.com.cvc.agendamento.config;
 
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -12,18 +12,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebApplicationConfig implements WebMvcConfigurer {
 
-@Override
-public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addViewController("/paginaNaoEncontrada").setViewName("forward:/index.html");
-}
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/paginaNaoEncontrada").setViewName("forward:/index.html");
+	}
 
-
-@Bean
-public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> containerCustomizer() {
-    return container -> {
-        container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND,
-                "/paginaNaoEncontrada"));
-    };
-  }
+	@Bean
+	public WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> containerCustomizer() {
+		return container -> container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/paginaNaoEncontrada"));
+	}
 
 }

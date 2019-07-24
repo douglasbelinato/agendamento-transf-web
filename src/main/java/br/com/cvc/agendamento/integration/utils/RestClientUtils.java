@@ -1,6 +1,6 @@
 package br.com.cvc.agendamento.integration.utils;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 import org.apache.oltu.oauth2.client.OAuthClient;
@@ -22,7 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Component
 public class RestClientUtils {
 	
-	private final Logger Logger = LoggerFactory.getLogger(RestClientUtils.class);
+	private Logger log = LoggerFactory.getLogger(RestClientUtils.class);
 	
 	@Value("${agendamento-transf-api.oauth2.clientId}")
 	private String clientId;
@@ -42,10 +42,11 @@ public class RestClientUtils {
 	private static final String APPLICATION_JSON = "application/json";
 	
 	public OAuthResourceResponse get(UriComponentsBuilder uriBuilder) throws OAuthSystemException, OAuthProblemException {
-		Logger.info("Realizando chamada GET para url: {}", uriBuilder.toUriString());
+		String uri = uriBuilder.toUriString();
+		log.info("Realizando chamada GET para url: {}", uri);
 		
 		String token = getAccessToken();
-    	OAuthClientRequest bearerClientRequest = new OAuthBearerClientRequest(uriBuilder.toUriString())
+    	OAuthClientRequest bearerClientRequest = new OAuthBearerClientRequest(uri)
     	         .setAccessToken(token).buildQueryMessage();
 
     	OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
@@ -53,12 +54,13 @@ public class RestClientUtils {
 	}
 	
 	public OAuthResourceResponse post(UriComponentsBuilder uriBuilder, String jsonBody) throws OAuthSystemException, OAuthProblemException {
-		Logger.info("Realizando chamada POST para url: {}", uriBuilder.toUriString());
+		String uri = uriBuilder.toUriString();
+		log.info("Realizando chamada POST para url: {}", uri);
 		String token = getAccessToken();
     	
     	OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
-    	OAuthClientRequest bearerClientRequest = new OAuthBearerClientRequest(uriBuilder.toUriString())
-      	         .setAccessToken(token).buildQueryMessage();
+    	OAuthClientRequest bearerClientRequest = new OAuthBearerClientRequest(uri)
+    			.setAccessToken(token).buildQueryMessage();
     	
     	bearerClientRequest.setBody(jsonBody);
     	bearerClientRequest.setHeader("Content-Type", APPLICATION_JSON);
@@ -67,7 +69,7 @@ public class RestClientUtils {
 	}
 	
 	private String getAccessToken() throws OAuthSystemException, OAuthProblemException {
-		Logger.info("Solicitando o access token do oAuth2");
+		log.info("Solicitando o access token do oAuth2");
 		
 		OAuthClientRequest request = OAuthClientRequest
 	            .tokenLocation(host + serverPort + tokenUrl)
@@ -76,7 +78,6 @@ public class RestClientUtils {
 		
 		request.addHeader("Accept", APPLICATION_JSON);
         request.addHeader("Content-Type", APPLICATION_JSON);
-        //request.addHeader("Authorization", "Basic Y2xpZW50Q3ZjOnMzY3IzdA==");
         request.addHeader("Authorization", gerarBasicAuthorizationHeader());
         
         OAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());
@@ -85,16 +86,9 @@ public class RestClientUtils {
 	}
 	
 	private String gerarBasicAuthorizationHeader() {
-		try {
-			Logger.info("Iniciando a geraçao do Basic Authorization Header");
-			
-			byte[] bytes = (clientId).concat(":").concat(clientSecret).getBytes("UTF-8");
-			
-			return "Basic ".concat(Base64.getEncoder().encodeToString(bytes));
-		} catch (UnsupportedEncodingException e ){
-			Logger.error("Ocorreu um erro na geraçao do Basic Authorization Header", e);
-			return "";
-		}
+		log.info("Iniciando a geraçao do Basic Authorization Header");
+		byte[] bytes = (clientId).concat(":").concat(clientSecret).getBytes(StandardCharsets.UTF_8);
+		return "Basic ".concat(Base64.getEncoder().encodeToString(bytes));
 	}
 
 }

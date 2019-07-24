@@ -44,12 +44,12 @@ public class AgendamentoController {
     }
     
     @GetMapping(value = "/agendamentos/novo")
-    public ModelAndView novo(AgendamentoDTO dto) throws Exception {
+    public ModelAndView novo(AgendamentoDTO dto) {
     	return new ModelAndView("agendamentos/cadastro-agendamento");
     }
     
     @PostMapping(value = "/agendamentos/novo")
-    public ModelAndView salvar(@Valid AgendamentoDTO dto, BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
+    public ModelAndView salvar(@Valid AgendamentoDTO dto, BindingResult result, RedirectAttributes redirectAttributes) throws OAuthSystemException, OAuthProblemException {
     	if (result.hasErrors()) {
     		return novo(dto);
     	}
