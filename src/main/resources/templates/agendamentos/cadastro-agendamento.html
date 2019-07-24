@@ -25,18 +25,19 @@
             <form method="POST" th:object="${agendamentoDTO}" th:action="@{/agendamentos/novo}" class="form-vertical  js-form-loading">
 
                <th:block th:include="fragments/MensagensErroValidacao"></th:block>
+               <th:block th:include="fragments/MensagemErroIntegracao"></th:block>
 
                 <div class="row">
                     <div class="col-sm-2  form-group  bw-required">
                         <label for="contaOrigem" class="control-label">Conta origem</label>
-                        <input id="contaOrigem" type="text" class="form-control" th:field="*{contaOrigem}"/>
+                        <input id="contaOrigem" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaOrigem}"/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-2  form-group  bw-required">
                         <label for="contaDestino" class="control-label">Conta destino</label>
-                        <input id="contaDestino" type="text" class="form-control" th:field="*{contaDestino}"/>
+                        <input id="contaDestino" type="text" maxlength="6" class="form-control  js-numero-conta" th:field="*{contaDestino}"/>
                     </div>
                 </div>
 
@@ -52,8 +53,8 @@
 
                 <div class="row">
                     <div class="col-sm-4  form-group  bw-required">
-                        <label for="dataTransferencia" class="control-label">Data da transferencia</label>
-                        <input id="dataTransferencia" type="text" class="form-control" th:field="*{dataTransferencia}"/>
+                        <label for="date" class="control-label">Data da transferencia</label>
+                        <input id="date" placeholder="DD/MM/YYYY" type="text" class="form-control  js-date" th:field="*{dataTransferencia}"  autocomplete="off"/>
                     </div>
                 </div>
 

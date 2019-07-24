@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.cvc.agendamento.dto.AgendamentoDTO;
 import br.com.cvc.agendamento.dto.ConsultaAgendamentosDTO;
+import br.com.cvc.agendamento.exception.BusinessException;
+import br.com.cvc.agendamento.exception.TechnicalException;
 import br.com.cvc.agendamento.service.AgendamentoService;
 
 @Controller
@@ -26,32 +28,37 @@ public class AgendamentoController {
     public ModelAndView listar() throws OAuthSystemException, OAuthProblemException {
         ModelAndView mv = new ModelAndView("agendamentos/lista-agendamentos");
 
-        ConsultaAgendamentosDTO consultaAgendamentosDTO = agendamentoService.listar();
-        mv.addObject("consultaAgendamentosDTO", consultaAgendamentosDTO);
+        try {
+	        ConsultaAgendamentosDTO consultaAgendamentosDTO = agendamentoService.listar();
+	        mv.addObject("consultaAgendamentosDTO", consultaAgendamentosDTO);
+        } catch(BusinessException | TechnicalException e) {
+    		mv.addObject("mensagemIntegracao", e.getMessage());
+    	}
         
         return mv;
     }
     
     @GetMapping(value = "/agendamentos/novo")
-    public ModelAndView novo(AgendamentoDTO dto) {
+    public ModelAndView novo(AgendamentoDTO dto) throws Exception {
     	return new ModelAndView("agendamentos/cadastro-agendamento");
     }
     
     @PostMapping(value = "/agendamentos/novo")
-    public ModelAndView salvar(@Valid AgendamentoDTO dto, BindingResult result, RedirectAttributes redirectAttributes) {
+    public ModelAndView salvar(@Valid AgendamentoDTO dto, BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
     	if (result.hasErrors()) {
     		return novo(dto);
     	}
     	
     	try {
     		agendamentoService.inserir(dto);
-		} catch(Exception e) {
-			result.rejectValue(e.getMessage(), e.getMessage());
-			return novo(dto);
-		}    	
+    	} catch(BusinessException | TechnicalException e) {
+    		ModelAndView mv = new ModelAndView("agendamentos/cadastro-agendamento");
+    		mv.addObject("agendamentoDTO", dto);
+    		mv.addObject("mensagemIntegracao", e.getMessage());
+    		return mv;
+    	}
     	
     	redirectAttributes.addFlashAttribute("mensagem", "Agendamento de transferência salvo com sucesso!");
-		
 		return new ModelAndView("redirect:/agendamentos/novo");    	
     }
 

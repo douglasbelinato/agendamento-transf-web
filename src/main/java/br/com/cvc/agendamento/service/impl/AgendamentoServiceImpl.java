@@ -1,7 +1,5 @@
 package br.com.cvc.agendamento.service.impl;
 
-import java.time.LocalDate;
-
 import org.apache.oltu.oauth2.client.response.OAuthResourceResponse;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
@@ -15,6 +13,10 @@ import com.google.gson.GsonBuilder;
 import br.com.cvc.agendamento.dto.AgendamentoDTO;
 import br.com.cvc.agendamento.dto.ConsultaAgendamentosDTO;
 import br.com.cvc.agendamento.dto.NovoAgendamentoDTO;
+import br.com.cvc.agendamento.dto.ResponseErroDTO;
+import br.com.cvc.agendamento.enums.TipoErroEnum;
+import br.com.cvc.agendamento.exception.BusinessException;
+import br.com.cvc.agendamento.exception.TechnicalException;
 import br.com.cvc.agendamento.integration.utils.RestClientUtils;
 import br.com.cvc.agendamento.service.AgendamentoService;
 
@@ -42,28 +44,36 @@ public class AgendamentoServiceImpl implements AgendamentoService {
         
         OAuthResourceResponse oAuthResourceResponse = restClientUtils.get(uriBuilder);
         
-        if (oAuthResourceResponse.getResponseCode() == 200) {
+        if (oAuthResourceResponse.getResponseCode() >= 200 && oAuthResourceResponse.getResponseCode() < 300) {
         	return gsonBuilder.create().fromJson(oAuthResourceResponse.getBody(), ConsultaAgendamentosDTO.class);
+        } else {
+        	ResponseErroDTO responseErroDTO = gsonBuilder.create().fromJson(oAuthResourceResponse.getBody(), ResponseErroDTO.class);
+        	
+        	if (responseErroDTO.getTipoErro().equalsIgnoreCase(TipoErroEnum.NEGOCIO.getDescricao())) {
+        		throw new BusinessException(responseErroDTO.getMensagem());
+        	} else {
+        		throw new TechnicalException(responseErroDTO.getMensagem());
+        	}
         }
-        
-        // TODO 
-        return null;
     }
 
     @Override
     public NovoAgendamentoDTO inserir(AgendamentoDTO dto) throws OAuthSystemException, OAuthProblemException {
-    	dto.setDataAgendamento(LocalDate.now());
-    	
     	UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(host + serverPort + resourceAgendamentos);
     	
     	OAuthResourceResponse oAuthResourceResponse = restClientUtils.post(uriBuilder, gsonBuilder.create().toJson(dto));
 
-    	if (oAuthResourceResponse.getResponseCode() == 200) {
+    	if (oAuthResourceResponse.getResponseCode() >= 200 && oAuthResourceResponse.getResponseCode() < 300) {
         	return gsonBuilder.create().fromJson(oAuthResourceResponse.getBody(), NovoAgendamentoDTO.class);
+    	} else {
+        	ResponseErroDTO responseErroDTO = gsonBuilder.create().fromJson(oAuthResourceResponse.getBody(), ResponseErroDTO.class);
+        	
+        	if (responseErroDTO.getTipoErro().equalsIgnoreCase(TipoErroEnum.NEGOCIO.getDescricao())) {
+        		throw new BusinessException(responseErroDTO.getMensagem());
+        	} else {
+        		throw new TechnicalException(responseErroDTO.getMensagem());
+        	}
         }
-        
-        // TODO 
-        return null;
         
     }
     

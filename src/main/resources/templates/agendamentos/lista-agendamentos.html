@@ -20,6 +20,8 @@
         </div>
 	
 		<div class="container-fluid">
+			<th:block th:include="fragments/MensagemErroIntegracao"></th:block>
+		
 			<div class="table-responsive  bw-tabela-simples">			
 				<table class="table  table-hover">
 					<thead>
@@ -38,8 +40,8 @@
 							<td th:text="${agendamento.contaOrigem}"></td>
 							<td th:text="${agendamento.contaDestino}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(agendamento.valor, 0, 'POINT', 2, 'COMMA')}|"></td>
-							<td th:text="${#temporals.format(agendamento.dataTransferencia, 'dd-MM-yyyy')}"></td>
-							<td th:text="${#temporals.format(agendamento.dataAgendamento, 'dd-MM-yyyy')}"></td>
+							<td th:text="${#temporals.format(agendamento.dataTransferencia, 'dd/MM/yyyy')}"></td>
+							<td th:text="${#temporals.format(agendamento.dataAgendamento, 'dd/MM/yyyy')}"></td>
 							<td th:text="|R$ ${#numbers.formatDecimal(agendamento.taxa, 0, 'POINT', 2, 'COMMA')}|"></td>
 						</tr>
 					</tbody>
