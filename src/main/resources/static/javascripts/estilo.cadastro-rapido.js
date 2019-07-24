@@ -1,24 +1,20 @@
 var Brewer = Brewer || {};
 
-//Mistura de module pattern com função construtora
-Brewer.EstiloCadastroRapido = (function(){
+Brewer.EstiloCadastroRapido = (function() {
 	
-	// função construtora
 	function EstiloCadastroRapido() {
-		// aqui coloco as inicializações
-		// uso .this ao invés de var pra poder usar no objeto inteiro que está sendo criado
 		this.modal = $('#modalCadastroRapidoEstilo');
 		this.botaoSalvar = this.modal.find('.js-modal-cadastro-estilo-salvar-btn');
-		this.form = this.modal.find('form'); // busca o elemento <form>
+		this.form = this.modal.find('form');
 		this.url = this.form.attr('action');
 		this.inputNomeEstilo = $('#nomeEstilo');
 		this.containerMensagemErro = $('.js-mensagem-cadastro-rapido-estilo');
 	}
 	
 	EstiloCadastroRapido.prototype.iniciar = function() {
-		this.form.on('submit', function(event) {event.preventDefault() }); // evita que ao apertar Enter o formulário do modal seja submetido
-		this.modal.on('shown.bs.modal', onModalShow.bind(this)); // evento 'shown.bs.modal' lançado qdo o modal é carregado por completo	
-		this.modal.on('hide.bs.modal', onModalClose.bind(this)); //evento lançado qdo o modal é fechado
+		this.form.on('submit', function(event) { event.preventDefault() });
+		this.modal.on('shown.bs.modal', onModalShow.bind(this));
+		this.modal.on('hide.bs.modal', onModalClose.bind(this))
 		this.botaoSalvar.on('click', onBotaoSalvarClick.bind(this));
 	}
 	
@@ -34,7 +30,6 @@ Brewer.EstiloCadastroRapido = (function(){
 	
 	function onBotaoSalvarClick() {
 		var nomeEstilo = this.inputNomeEstilo.val().trim();
-		//acionando evento $.ajax para disparar chamada AJAX ao servidor
 		$.ajax({
 			url: this.url,
 			method: 'POST',
@@ -49,7 +44,7 @@ Brewer.EstiloCadastroRapido = (function(){
 		var mensagemErro = obj.responseText;
 		this.containerMensagemErro.removeClass('hidden');
 		this.containerMensagemErro.html('<span>' + mensagemErro + '</span>');
-		this.form.find('.form-group').addClass('has-error');		
+		this.form.find('.form-group').addClass('has-error');
 	}
 	
 	function onEstiloSalvo(estilo) {
@@ -61,14 +56,9 @@ Brewer.EstiloCadastroRapido = (function(){
 	
 	return EstiloCadastroRapido;
 	
-})();
-
+}());
 
 $(function() {
-	
 	var estiloCadastroRapido = new Brewer.EstiloCadastroRapido();
 	estiloCadastroRapido.iniciar();
-	
-	
-	
 });
