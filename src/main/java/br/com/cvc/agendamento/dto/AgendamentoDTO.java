@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,9 +19,13 @@ public class AgendamentoDTO implements Serializable {
 	private static final long serialVersionUID = -8432047026593989800L;
 
 	@NotNull(message = "Conta origem é obrigatório")
-    private Integer contaOrigem;
-
+	@Min(value = 1, message = "Conta origem deve ser maior que 0")
+	@Max(value = 999999, message = "Conta origem deve ser menor ou igual a 999999")
+	private Integer contaOrigem;
+	
 	@NotNull(message = "Conta destino é obrigatório")
+	@Min(value = 1, message = "Conta destino deve ser maior que 0")
+	@Max(value = 999999, message = "Conta destino deve ser menor ou igual a 999999")
     private Integer contaDestino;
 
 	@NumberFormat
