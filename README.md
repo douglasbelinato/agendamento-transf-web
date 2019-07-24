@@ -18,7 +18,7 @@ mvn spring-boot:run
 ### Modo de execução - Opção 2
 Na pasta raiz da aplicação, execute o comando maven:
 ```
-java -jar target/agendamento-transf-api.jar
+java -jar target/agendamento-transf-web.jar
 ```
 
 ### URL para acessar a aplicação localmente:
